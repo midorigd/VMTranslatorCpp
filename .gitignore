@@ -1,0 +1,12 @@
+build/
+data/
+
+.vscode/
+
+*.o
+*.out
+*.exe
+*.log
+*.dSYM/
+
+.DS_Store
