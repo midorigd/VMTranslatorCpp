@@ -6,7 +6,8 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     if (argc < 2 || argc > 3 || argc == 3 && string(argv[2]) != "-c"s) {
-        cerr << "Usage: ./VMTranslator <dirname OR filename.vm> (-c)\n";
+        cerr << "Usage: bin/VMTranslator <dirname OR filename.vm> [-c]\n";
+        cerr << "   -c: Enables comments in output file\n";
         exit(1);
     }
 

@@ -72,7 +72,7 @@ void CodeWriter::writeArithmetic(const OP& command) {
         commandA(trueLabel);
         commandC("D", toJump(command));
 
-        commandC("D", "0"); // why tf does this work as an int
+        commandC("D", "0");
         commandA(falseLabel);
         absJump();
 

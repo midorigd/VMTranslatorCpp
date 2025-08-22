@@ -6,18 +6,12 @@ The assembler takes a single `.vm` file or a directory of `.vm` files as a comma
 
 ## Modules
 
-VMTranslator: Program entry point  
-
-### src
-
 CodeWriter: Writes assembly commands to output  
-Parser: Handles input filestream and categorizes commands and arguments  
-VMConstants: Enums for commands, segments, and operators  
+Parser: Handles input filestream, processes commands and arguments  
+VMConstants: Enums and processing functions for commands, segments, and operators  
 VMTranslator: Drives the translation process  
-
-### utils
-
-ArrayStack: A simple implementation of a stack
+main: Program entry point  
+utils: Helper functions for string processing
 
 ## Building the project
 
@@ -34,12 +28,15 @@ make
 
 ## Running the project
 
-Run one of the following from the build directory:
+Run the following from the build directory:
 
 ```zsh
-./VMTranslator path/to/dir
-./VMTranslator path/to/file.vm
+bin/VMTranslator <dirname OR filename.vm> [-c]
 ```
+
+### Flags
+
+`-c`: Enables comments in output file
 
 ## Notes
 
