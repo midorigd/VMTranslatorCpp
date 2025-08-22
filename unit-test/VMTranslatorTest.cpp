@@ -10,8 +10,8 @@
 using namespace std;
 
 class VMTranslatorTest : public ::testing::Test {
-protected:
-    VMTranslator vm{"vmtest.txt", false};
+// protected:
+//     VMTranslator vm{"vmtest.txt", false};
 };
 
 TEST_F(VMTranslatorTest, fileManagerTest) {

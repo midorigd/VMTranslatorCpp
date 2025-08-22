@@ -17,9 +17,9 @@ using namespace std;
 
 class CodeWriter {
 public:
-    CodeWriter(const string& outfile, bool commentMode);
+    CodeWriter(const filesystem::path& outfile, bool commentMode);
     ~CodeWriter();
-    void loadFile(const string& vmFile);
+    void loadFile(const filesystem::path& vmFile);
 
     void writeBootstrap();
     void writeArithmetic(const OP& command);

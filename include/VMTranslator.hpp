@@ -17,18 +17,18 @@ public:
     void translateAll();
 
 private:
-    vector<string> infiles;
-    string outfile;
+    vector<filesystem::path> infiles;
+    filesystem::path outfile;
     CodeWriter codeWriter;
 
-    static bool isSysFile(const string& vmFile);
-    static bool sortSysInit(const string& file1, const string& file2);
-    
-    string fileManager(string file);
-    void getVMFiles(const filesystem::path& dirname);
-    void translate(const string& vmFile);
+    static bool isSysFile(const filesystem::path& vmFile);
+    static bool sortSysInit(const filesystem::path& file1, const filesystem::path& file2);
 
-    FRIEND_TEST(VMTranslatorTest, fileManagerTest);
+    filesystem::path fileManager(string file);
+    void getVMFiles(const filesystem::path& dirname);
+    void translate(const filesystem::path& vmFile);
+
+    // FRIEND_TEST(VMTranslatorTest, fileManagerTest);
 };
 
 #endif

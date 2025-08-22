@@ -23,20 +23,25 @@ const map<SEGMENT, int> CodeWriter::mappedSegments {
 };
 
 
-CodeWriter::CodeWriter(const string& outfile, bool commentMode) :
+CodeWriter::CodeWriter(const filesystem::path& outfile, bool commentMode) :
     outfile(outfile),
     commentMode(commentMode),
     arithLabelID(0),
     functionLabelID(0),
-    returnAddressID(0)
-    { callStack.push(""); }
+    returnAddressID(0) {
+        if (!CodeWriter::outfile) {
+            cerr << "Output file not opened\n";
+            exit(2);
+        }
+        callStack.push("");
+    }
 
 CodeWriter::~CodeWriter() {
     outfile.close();
 }
 
-void CodeWriter::loadFile(const string& vmFile) {
-    filename = vmFile;
+void CodeWriter::loadFile(const filesystem::path& vmFile) {
+    filename = vmFile.string();
 }
 
 void CodeWriter::writeBootstrap() {

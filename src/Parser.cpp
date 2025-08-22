@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include "VMConstants.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -46,9 +47,9 @@ const unordered_map<string, SEGMENT> Parser::segmentLookup {
     {"pointer", SEGMENT::POINTER}
 };
 
-Parser::Parser(const string& filename) : infile(filename) {
+Parser::Parser(const filesystem::path& filename) : infile(filename) {
     if (!infile) {
-        cerr << "File not opened\n";
+        cerr << "Input file not opened\n";
         exit(2);
     }
 }

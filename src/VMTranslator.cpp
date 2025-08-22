@@ -18,19 +18,17 @@ void VMTranslator::translateAll() {
         codeWriter.writeBootstrap();
     }
 
-    for (const string& vmFile : infiles) {
+    for (const filesystem::path& vmFile : infiles) {
         translate(vmFile);
     }
 }
 
-bool VMTranslator::isSysFile(const string& vmFile) {
+bool VMTranslator::isSysFile(const filesystem::path& vmFile) {
     string SYS_FUNC { "Sys.vm" };
-    size_t sysLen { SYS_FUNC.length() };
-
-    return !vmFile.compare(vmFile.length() - sysLen, sysLen, SYS_FUNC);
+    return vmFile.filename() == SYS_FUNC;
 }
 
-bool VMTranslator::sortSysInit(const string& file1, const string& file2) {
+bool VMTranslator::sortSysInit(const filesystem::path& file1, const filesystem::path& file2) {
     if (isSysFile(file1)) {
         return true;
     } else if (isSysFile(file2)) {
@@ -40,7 +38,7 @@ bool VMTranslator::sortSysInit(const string& file1, const string& file2) {
     }
 }
 
-string VMTranslator::fileManager(string file) {
+filesystem::path VMTranslator::fileManager(string file) {
     while (!file.empty() && (file.back() == filesystem::path::preferred_separator)) {
         file.pop_back();
     }
@@ -49,28 +47,28 @@ string VMTranslator::fileManager(string file) {
     filesystem::path dirname(filepath.parent_path());
 
     if (filepath.has_extension()) {
-        infiles.push_back(filepath.string());
+        infiles.push_back(filepath);
     } else {
         dirname /= filepath.filename();
         getVMFiles(dirname);
         sort(infiles.begin(), infiles.end(), sortSysInit);
     }
 
-    outfile = (dirname / filepath.filename().replace_extension(".asm")).string();
+    outfile = dirname / filepath.filename().replace_extension(".asm");
     return outfile;
 }
 
 void VMTranslator::getVMFiles(const filesystem::path& dirname) {
     for (const filesystem::directory_entry& file : filesystem::directory_iterator(dirname)) {
         if (file.is_regular_file() && file.path().extension() == ".vm") {
-            infiles.push_back(file.path().string());
+            infiles.push_back(file.path());
         }
     }
 }
 
-void VMTranslator::translate(const string& vmFile) {
+void VMTranslator::translate(const filesystem::path& vmFile) {
     Parser parser(vmFile);
-    codeWriter.loadFile(filesystem::path(vmFile).stem().string());
+    codeWriter.loadFile(filesystem::path(vmFile).stem());
 
     while (parser.hasMoreLines()) {
         parser.advance();

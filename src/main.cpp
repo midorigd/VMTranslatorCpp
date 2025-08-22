@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 /**
  * Exit codes:
  * 1: Incorrect argv usage
- * 2: File not found
+ * 2: File not opened
  * 3: Pop to constant segment
  * 4: Convert non-logic operator to JUMP
  * 5: Undefined type in processToString

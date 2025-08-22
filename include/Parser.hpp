@@ -3,6 +3,7 @@
 
 #include "VMConstants.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <regex>
 #include <string>
@@ -12,7 +13,7 @@ using namespace std;
 
 class Parser {
 public:
-    Parser(const string& filename);
+    Parser(const filesystem::path& filename);
     ~Parser();
     bool hasMoreLines();
     void advance();
