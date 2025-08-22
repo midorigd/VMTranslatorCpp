@@ -11,7 +11,7 @@ Parser: Handles input filestream, processes commands and arguments
 VMConstants: Enums and processing functions for commands, segments, and operators  
 VMTranslator: Drives the translation process  
 main: Program entry point  
-utils: Helper functions for string processing
+utils: Helper functions for string and command line argument processing
 
 ## Building the project
 

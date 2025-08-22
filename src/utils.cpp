@@ -1,13 +1,22 @@
 #include "utils.hpp"
 
+#include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
 using namespace std;
 
-regex commentPattern("//.*");
+bool isValidArguments(const int argc, const char* const argv[]) {
+    return argc == 2 || (argc == 3 && string(argv[2]) == "-c"s);
+}
+
+void displayUsage() {
+    cerr << "Usage: bin/VMTranslator <dirname OR filename.vm> [-c]\n";
+    cerr << "   -c: Enables comments in output file\n";
+}
 
 void removeComments(string& line) {
+    regex commentPattern("//.*");
     line = regex_replace(line, commentPattern, "");
 }
 

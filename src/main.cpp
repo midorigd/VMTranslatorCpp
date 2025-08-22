@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include "VMTranslator.hpp"
 
 #include <iostream>
@@ -5,15 +6,15 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    if (argc < 2 || argc > 3 || argc == 3 && string(argv[2]) != "-c"s) {
-        cerr << "Usage: bin/VMTranslator <dirname OR filename.vm> [-c]\n";
-        cerr << "   -c: Enables comments in output file\n";
+    if (!isValidArguments(argc, argv)) {
+        displayUsage();
         exit(1);
     }
 
     string sourceFile { argv[1] };
+    bool commentMode { argc == 3 };
 
-    VMTranslator translator(sourceFile, argc == 3);
+    VMTranslator translator(sourceFile, commentMode);
     translator.translateAll();
 
     return 0;

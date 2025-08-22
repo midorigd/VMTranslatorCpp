@@ -13,7 +13,7 @@ using namespace std;
 
 class VMTranslator {
 public:
-    VMTranslator(const string& sourceFile, bool commentMode = false);
+    VMTranslator(const string& sourceFile, bool commentMode);
     void translateAll();
 
 private:
