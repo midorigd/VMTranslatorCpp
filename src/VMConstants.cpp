@@ -1,8 +1,9 @@
 #include "VMConstants.hpp"
 
 #include <iostream>
-#include <string>
-#include <unordered_map>
+
+namespace Translator {
+
 using namespace std;
 
 const unordered_map<SEGMENT, string> segmentToStr {
@@ -70,4 +71,6 @@ bool isUnaryOp(const OP& op) {
 
 bool isLogicOp(const OP& op) {
     return opToJump.find(op) != opToJump.end();
+}
+
 }

@@ -7,6 +7,9 @@
 #include <filesystem>
 #include <string>
 #include <vector>
+
+namespace Translator {
+
 using namespace std;
 
 VMTranslator::VMTranslator(const string& sourceFile, bool commentMode) :
@@ -100,4 +103,6 @@ void VMTranslator::translate(const filesystem::path& vmFile) {
                 break;
         }
     }
+}
+
 }

@@ -6,15 +6,15 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    if (!isValidArguments(argc, argv)) {
-        displayUsage();
+    if (!Translator::isValidArguments(argc, argv)) {
+        Translator::displayUsage();
         exit(1);
     }
 
     string sourceFile { argv[1] };
     bool commentMode { argc == 3 };
 
-    VMTranslator translator(sourceFile, commentMode);
+    Translator::VMTranslator translator(sourceFile, commentMode);
     translator.translateAll();
 
     return 0;

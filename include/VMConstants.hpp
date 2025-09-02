@@ -3,8 +3,8 @@
 
 #include <string>
 #include <unordered_map>
-using namespace std;
 
+namespace Translator {
 
 enum class COMMAND {
     PUSH,
@@ -50,17 +50,19 @@ enum class OP {
     NOT
 };
 
-extern const unordered_map<SEGMENT, string> segmentToStr;
-extern const unordered_map<JUMP, string> jumpToStr;
-extern const unordered_map<OP, string> opToStr;
-extern const unordered_map<OP, JUMP> opToJump;
+extern const std::unordered_map<SEGMENT, std::string> segmentToStr;
+extern const std::unordered_map<JUMP, std::string> jumpToStr;
+extern const std::unordered_map<OP, std::string> opToStr;
+extern const std::unordered_map<OP, JUMP> opToJump;
 
-string operator+(SEGMENT segment);
-string operator+(JUMP jump);
-string operator+(OP op);
+std::string operator+(SEGMENT segment);
+std::string operator+(JUMP jump);
+std::string operator+(OP op);
 JUMP toJump(const OP& op);
 
 bool isUnaryOp(const OP& op);
 bool isLogicOp(const OP& op);
+
+}
 
 #endif

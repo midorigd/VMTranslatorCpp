@@ -7,18 +7,21 @@
 #include <string>
 #include <type_traits>
 #include <vector>
-using namespace std;
+
+namespace Translator {
 
 bool isValidArguments(const int argc, const char* const argv[]);
 void displayUsage();
 
-void removeComments(string& line);
-void stripNewlines(string& line);
-vector<string> splitString(string& line, const char separator = ' ');
+void removeComments(std::string& line);
+void stripNewlines(std::string& line);
+std::vector<std::string> splitString(std::string& line, const char separator = ' ');
 
 template <typename T>
-string processToString(const T& data);
+std::string processToString(const T& data);
 
 #include "utils.tpp"
+
+}
 
 #endif

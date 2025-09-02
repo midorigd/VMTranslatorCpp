@@ -9,11 +9,14 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-using namespace std;
+
+namespace Translator {
+
+namespace fs = std::filesystem;
 
 class Parser {
 public:
-    Parser(const filesystem::path& filename);
+    Parser(const fs::path& filename);
     ~Parser();
     bool hasMoreLines();
     void advance();
@@ -23,15 +26,17 @@ public:
     int arg2() const;
 
 private:
-    static const regex commentPattern;
-    static const unordered_map<string, COMMAND> commandLookup;
-    static const unordered_map<string, OP> opLookup;
-    static const unordered_map<string, SEGMENT> segmentLookup;
+    static const std::regex commentPattern;
+    static const std::unordered_map<std::string, COMMAND> commandLookup;
+    static const std::unordered_map<std::string, OP> opLookup;
+    static const std::unordered_map<std::string, SEGMENT> segmentLookup;
 
-    ifstream infile;
-    vector<string> current;
+    std::ifstream infile;
+    std::vector<std::string> current;
 };
 
 #include "Parser.tpp"
+
+}
 
 #endif

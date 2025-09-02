@@ -1,9 +1,9 @@
 #include "utils.hpp"
 
-#include <iostream>
 #include <regex>
-#include <string>
-#include <vector>
+
+namespace Translator {
+
 using namespace std;
 
 bool isValidArguments(const int argc, const char* const argv[]) {
@@ -44,4 +44,6 @@ vector<string> splitString(string& line, const char separator) {
     }
 
     return result;
+}
+
 }

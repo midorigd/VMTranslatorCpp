@@ -2,11 +2,8 @@
 #include "utils.hpp"
 #include "VMConstants.hpp"
 
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <unordered_map>
+namespace Translator {
+
 using namespace std;
 
 const regex Parser::commentPattern("//.*");
@@ -87,4 +84,6 @@ COMMAND Parser::commandType() const {
 
 int Parser::arg2() const {
     return stoi(current[2]);
+}
+
 }

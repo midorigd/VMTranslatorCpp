@@ -2,10 +2,8 @@
 #include "utils.hpp"
 #include "VMConstants.hpp"
 
-#include <array>
-#include <iostream>
-#include <map>
-#include <string>
+namespace Translator {
+
 using namespace std;
 
 const int CodeWriter::STACK_POINTER = 256;
@@ -339,4 +337,6 @@ void CodeWriter::popD() {
     loadStackPtr();
     commandC("AM", "M-1");
     memToData();
+}
+
 }

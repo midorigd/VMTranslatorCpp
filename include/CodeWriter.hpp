@@ -13,61 +13,64 @@
 #include <stack>
 #include <string>
 #include <unordered_map>
-using namespace std;
+
+namespace Translator {
+
+namespace fs = std::filesystem;
 
 class CodeWriter {
 public:
-    CodeWriter(const filesystem::path& outfile, bool commentMode);
+    CodeWriter(const fs::path& outfile, bool commentMode);
     ~CodeWriter();
-    void loadFile(const filesystem::path& vmFile);
+    void loadFile(const fs::path& vmFile);
 
     void writeBootstrap();
     void writeArithmetic(const OP& command);
     void writePushPop(const COMMAND& command, const SEGMENT& segment, const int index);
-    void writeLabel(const string& label);
-    void writeGoto(const string& label);
-    void writeIf(const string& label);
-    void writeCall(const string& functionName, const int nArgs);
-    void writeFunction(const string& functionName, const int nVars);
+    void writeLabel(const std::string& label);
+    void writeGoto(const std::string& label);
+    void writeIf(const std::string& label);
+    void writeCall(const std::string& functionName, const int nArgs);
+    void writeFunction(const std::string& functionName, const int nVars);
     void writeReturn();
 
 private:
     static const int STACK_POINTER;
-    static const string INIT_FUNC;
-    static const string TEMP_ADDR;
-    static const string TEMP_VAR;
-    static const string RET_ADDR;
-    static const string END_FRAME;
+    static const std::string INIT_FUNC;
+    static const std::string TEMP_ADDR;
+    static const std::string TEMP_VAR;
+    static const std::string RET_ADDR;
+    static const std::string END_FRAME;
 
-    static const map<SEGMENT, int> mappedSegments;
+    static const std::map<SEGMENT, int> mappedSegments;
 
-    ofstream outfile;
+    std::ofstream outfile;
     bool commentMode;
 
     int arithLabelID;
     int functionLabelID;
     int returnAddressID;
-    stack<string> callStack;
+    std::stack<std::string> callStack;
 
-    string filename;
+    std::string filename;
 
-    string currFunction() const;
-    string createBoundLabel(const string& label) const;
-    string createReturnLabel();
-    array<string, 2> createUniqueLabels(int& counter, const string& category, const string& label1, const string& label2);
-    array<string, 2> createLogicLabels();
-    array<string, 2> createFunctionLabels();
+    std::string currFunction() const;
+    std::string createBoundLabel(const std::string& label) const;
+    std::string createReturnLabel();
+    std::array<std::string, 2> createUniqueLabels(int& counter, const std::string& category, const std::string& label1, const std::string& label2);
+    std::array<std::string, 2> createLogicLabels();
+    std::array<std::string, 2> createFunctionLabels();
 
-    void writeCommand(const string& command);
-    void writeComment(const string& comment);
+    void writeCommand(const std::string& command);
+    void writeComment(const std::string& comment);
     template <typename T>
     void commandA(const T& label);
-    void commandC(const string& dest, const string& comp);
-    void commandC(const string& comp, const JUMP& jump);
-    void commandL(const string& label);
+    void commandC(const std::string& dest, const std::string& comp);
+    void commandC(const std::string& comp, const JUMP& jump);
+    void commandL(const std::string& label);
 
-    void increment(const string& reg);
-    void decrement(const string& reg);
+    void increment(const std::string& reg);
+    void decrement(const std::string& reg);
     void memToData();
     void dataToMem();
     void dereferencePtr();
@@ -82,7 +85,7 @@ private:
     template <typename T>
     void dataToPtr(const T& pointer);
 
-    void push(const string& elem);
+    void push(const std::string& elem);
     void pushD();
     void popD();
 
@@ -99,5 +102,7 @@ private:
 };
 
 #include "CodeWriter.tpp"
+
+}
 
 #endif
