@@ -26,7 +26,7 @@ void stripNewlines(string& line) {
 
 vector<string> splitString(string& line, const char separator) {
     vector<string> result;
-    string current {""};
+    string current { "" };
 
     for (size_t i = 0; i < line.length(); ++i) {
         if (line[i] == separator) {

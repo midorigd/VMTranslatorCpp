@@ -44,15 +44,11 @@ const unordered_map<string, SEGMENT> Parser::segmentLookup {
     {"pointer", SEGMENT::POINTER}
 };
 
-Parser::Parser(const filesystem::path& filename) : infile(filename) {
+Parser::Parser(const fs::path& filename) : infile(filename) {
     if (!infile) {
         cerr << "Input file not opened\n";
         exit(2);
     }
-}
-
-Parser::~Parser() {
-    infile.close();
 }
 
 bool Parser::hasMoreLines() {

@@ -5,14 +5,13 @@
 #include "VMConstants.hpp"
 
 #include "../build/_deps/googletest-src/googletest/include/gtest/gtest_prod.h"
-// #include <gtest/gtest_prod.h>
 
-#include <array>
 #include <fstream>
 #include <map>
 #include <stack>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 namespace Translator {
 
@@ -21,7 +20,6 @@ namespace fs = std::filesystem;
 class CodeWriter {
 public:
     CodeWriter(const fs::path& outfile, bool commentMode);
-    ~CodeWriter();
     void loadFile(const fs::path& vmFile);
 
     void writeBootstrap();
@@ -57,9 +55,9 @@ private:
     std::string currFunction() const;
     std::string createBoundLabel(const std::string& label) const;
     std::string createReturnLabel();
-    std::array<std::string, 2> createUniqueLabels(int& counter, const std::string& category, const std::string& label1, const std::string& label2);
-    std::array<std::string, 2> createLogicLabels();
-    std::array<std::string, 2> createFunctionLabels();
+    std::pair<std::string, std::string> createUniqueLabels(int& counter, const std::string& category, const std::string& label1, const std::string& label2);
+    std::pair<std::string, std::string> createLogicLabels();
+    std::pair<std::string, std::string> createFunctionLabels();
 
     void writeCommand(const std::string& command);
     void writeComment(const std::string& comment);

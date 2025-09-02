@@ -20,8 +20,7 @@ const map<SEGMENT, int> CodeWriter::mappedSegments {
     {SEGMENT::THAT, 1},
 };
 
-
-CodeWriter::CodeWriter(const filesystem::path& outfile, bool commentMode) :
+CodeWriter::CodeWriter(const fs::path& outfile, bool commentMode) :
     outfile(outfile),
     commentMode(commentMode),
     arithLabelID(0),
@@ -34,11 +33,7 @@ CodeWriter::CodeWriter(const filesystem::path& outfile, bool commentMode) :
         callStack.push("");
     }
 
-CodeWriter::~CodeWriter() {
-    outfile.close();
-}
-
-void CodeWriter::loadFile(const filesystem::path& vmFile) {
+void CodeWriter::loadFile(const fs::path& vmFile) {
     filename = vmFile.string();
 }
 
@@ -61,9 +56,7 @@ void CodeWriter::writeArithmetic(const OP& command) {
         pushD();
 
     } else if (isLogicOp(command)) {
-        array<string, 2> labels { createLogicLabels() };
-        string trueLabel { labels[0] };
-        string falseLabel { labels[1] };
+        auto [trueLabel, falseLabel] { createLogicLabels() };
 
         popD();
         dataToPtr(TEMP_VAR);
@@ -196,9 +189,7 @@ void CodeWriter::writeCall(const string& functionName, const int nArgs) {
 void CodeWriter::writeFunction(const string& functionName, const int nVars) {
     writeComment("function " + functionName + " " + to_string(nVars));
 
-    array<string, 2> labels { createFunctionLabels() };
-    string loopLabel { labels[0] };
-    string endLabel { labels[1] };
+    auto [loopLabel, endLabel] { createFunctionLabels() };
 
     commandL(functionName);
     constToData(nVars);
@@ -254,16 +245,16 @@ string CodeWriter::createReturnLabel() {
     return currFunction() + "$ret." + to_string(returnAddressID++);
 }
 
-array<string, 2> CodeWriter::createUniqueLabels(int& counter, const string& category, const string& label1, const string& label2) {
+pair<string, string> CodeWriter::createUniqueLabels(int& counter, const string& category, const string& label1, const string& label2) {
     string id { to_string(counter++) };
     return {category + "." + label1 + id, category + "." + label2 + id};
 }
 
-array<string, 2> CodeWriter::createLogicLabels() {
+pair<string, string> CodeWriter::createLogicLabels() {
     return createUniqueLabels(arithLabelID, "LOGIC", "COMPTRUE", "COMPEND");
 }
 
-array<string, 2> CodeWriter::createFunctionLabels() {
+pair<string, string> CodeWriter::createFunctionLabels() {
     return createUniqueLabels(functionLabelID, "FUNC", "INITLOCALVARS", "INITLOCALSEND");
 }
 

@@ -17,7 +17,6 @@ namespace fs = std::filesystem;
 class Parser {
 public:
     Parser(const fs::path& filename);
-    ~Parser();
     bool hasMoreLines();
     void advance();
     COMMAND commandType() const;
