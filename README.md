@@ -42,6 +42,10 @@ bin/VMTranslator <dirname OR filename.vm> [-c]
 
 My Python implementation of this project: [VMTranslator (Python)](https://github.com/midorigd/VMTranslatorPython)
 
+### Stats
+
+1263 lines (1011 loc)
+
 ## References
 
 [nand2tetris](https://www.nand2tetris.org/course)
