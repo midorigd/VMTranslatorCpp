@@ -19,17 +19,59 @@ namespace fs = std::filesystem;
 
 class CodeWriter {
 public:
+    /**
+     * Creates a new CodeWriter module to write assembly code to output.
+     */
     CodeWriter(const fs::path& outfile, bool commentMode);
-    void loadFile(const fs::path& vmFile);
 
+    /**
+     * Prepares the module to read code from a new VM file.
+     */
+    void loadFile(const fs::path& vmFile);
+    
+    /**
+     * Writes initializer code to allow the Jack OS to directly boot and run the program.
+     */
     void writeBootstrap();
+
+    /**
+     * Translates an arithmetic VM command to assembly and writes it to output.
+     */
     void writeArithmetic(const OP& command);
+
+    /**
+     * Translates a push or pop VM command with the given memory identifier to assembly and writes it to output.
+     */
     void writePushPop(const COMMAND& command, const SEGMENT& segment, const int index);
+
+    /**
+     * Translates a label VM command to assembly and writes it to output.
+     */
     void writeLabel(const std::string& label);
+
+    /**
+     * Translates a goto VM command with the given label to assembly and writes it to output.
+     */
     void writeGoto(const std::string& label);
+
+    /**
+     * Translates an if-goto VM command with the given label to assembly and writes it to output.
+     */
     void writeIf(const std::string& label);
+
+    /**
+     * Translates a function call VM command with the given name and argument count to assembly and writes it to output.
+     */
     void writeCall(const std::string& functionName, const int nArgs);
+
+    /**
+     * Translates a function definition VM command with the given name and local variable count to assembly and writes it to output.
+     */
     void writeFunction(const std::string& functionName, const int nVars);
+
+    /**
+     * Translates a function return VM command to assembly and writes it to output.
+     */
     void writeReturn();
 
 private:

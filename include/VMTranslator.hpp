@@ -16,7 +16,14 @@ namespace fs = std::filesystem;
 
 class VMTranslator {
 public:
+    /**
+     * Creates a new VMTranslator module and searches the provided source file/directory for all VM files to compile.
+     */
     VMTranslator(const std::string& sourceFile, bool commentMode);
+
+    /**
+     * Translates all VM files found in the source file path and outputs the corresponding assembly code into a single .asm file.
+     */
     void translateAll();
 
 private:
